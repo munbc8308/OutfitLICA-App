@@ -1,0 +1,55 @@
+name: outfitlica_app
+description: AI-powered outfit recommendation app - OutfitLICA
+version: 1.0.0+1
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 상태관리
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.4
+
+  # 네비게이션
+  go_router: ^13.2.0
+
+  # 카메라 & 이미지
+  camera: ^0.10.5+9
+  image_picker: ^1.0.7
+  image: ^4.1.7
+  cached_network_image: ^3.3.1
+
+  # 네트워크 & AI API
+  http: ^1.2.0
+  dio: ^5.4.0
+
+  # 환경변수
+  flutter_dotenv: ^5.1.0
+
+  # 권한
+  permission_handler: ^11.3.0
+
+  # UI 컴포넌트
+  flutter_svg: ^2.0.10+1
+  shimmer: ^3.0.0
+  lottie: ^3.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.8
+  riverpod_generator: ^2.3.9
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animations/
+    - .env
