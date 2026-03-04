@@ -1,96 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../shared/widgets/app_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../wardrobe/presentation/wardrobe_screen.dart';
+import '../../outfit_builder/presentation/outfit_builder_screen.dart';
+import '../../recommendation/presentation/recommendation_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key, this.tab = 0});
+  final int tab;
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late int _currentTab;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentTab = widget.tab;
+  }
+
+  static const _screens = [
+    RecommendationScreen(),
+    WardrobeScreen(),
+    OutfitBuilderScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('OutfitLICA'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            onPressed: () {},
+      body: IndexedStack(
+        index: _currentTab,
+        children: _screens,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentTab,
+        onDestinationSelected: (i) => setState(() => _currentTab = i),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.wb_sunny_outlined),
+            selectedIcon: Icon(Icons.wb_sunny),
+            label: '오늘의 코디',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.checkroom_outlined),
+            selectedIcon: Icon(Icons.checkroom),
+            label: '내 옷장',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.style_outlined),
+            selectedIcon: Icon(Icons.style),
+            label: '코디 조합',
           ),
         ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 24),
-              Text(
-                '오늘의 코디를\n분석해보세요',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'AI가 당신의 스타일을 분석하고\n완벽한 코디를 추천해드립니다.',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.grey[600],
-                    ),
-              ),
-              const SizedBox(height: 32),
-              _HeroCard(),
-              const Spacer(),
-              AppButton(
-                label: '카메라로 촬영하기',
-                icon: Icons.camera_alt,
-                onPressed: () => context.push('/camera'),
-              ),
-              const SizedBox(height: 12),
-              AppButton(
-                label: '갤러리에서 선택하기',
-                icon: Icons.photo_library,
-                outlined: true,
-                onPressed: () => context.push('/camera'),
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 220,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF1A1A2E), Color(0xFFE94560)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.style, size: 64, color: Colors.white54),
-            SizedBox(height: 12),
-            Text(
-              'AI 코디 추천',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

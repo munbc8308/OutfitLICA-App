@@ -34,6 +34,19 @@ dependencies:
   # 권한
   permission_handler: ^11.3.0
 
+  # 로컬 저장소
+  path_provider: ^2.1.2
+  shared_preferences: ^2.2.3
+
+  # 고유 ID
+  uuid: ^4.3.3
+
+  # 위치 (날씨용)
+  geolocator: ^12.0.0
+
+  # 날짜 포맷
+  intl: ^0.19.0
+
   # UI 컴포넌트
   flutter_svg: ^2.0.10+1
   shimmer: ^3.0.0

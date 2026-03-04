@@ -41,6 +41,12 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>OutfitLICA가 동영상 촬영을 위해 마이크에 접근합니다.</string>
 
+	<!-- 위치 권한 (날씨 기반 코디 추천) -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>OutfitLICA가 현재 날씨를 확인하여 오늘의 코디를 추천합니다.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>OutfitLICA가 현재 날씨를 확인하여 오늘의 코디를 추천합니다.</string>
+
 	<key>MinimumOSVersion</key>
 	<string>14.0</string>
 	<key>UILaunchStoryboardName</key>
