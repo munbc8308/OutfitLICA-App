@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../wardrobe/domain/clothing_category.dart';
+import '../../wardrobe/domain/clothing_item.dart';
 import 'recommendation_provider.dart';
 import '../../outfit_builder/presentation/outfit_canvas_widget.dart';
 import '../../../core/services/weather_service.dart';

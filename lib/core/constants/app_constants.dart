@@ -4,8 +4,6 @@ class AppConstants {
   AppConstants._();
 
   static String get aiApiKey => dotenv.env['AI_API_KEY'] ?? '';
-  static String get aiApiBaseUrl =>
-      dotenv.env['AI_API_BASE_URL'] ?? 'https://api.example.com';
 
   /// remove.bg API 키 (배경 제거)
   static String get removeBgApiKey => dotenv.env['REMOVE_BG_API_KEY'] ?? '';

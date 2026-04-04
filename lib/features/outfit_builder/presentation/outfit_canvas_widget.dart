@@ -166,16 +166,19 @@ class _CategoryPlaceholder extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(category.emoji, style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 2),
-            Text(
-              category.label,
-              style: const TextStyle(fontSize: 9, color: Colors.grey),
-            ),
-          ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(category.emoji, style: const TextStyle(fontSize: 20)),
+              const SizedBox(height: 2),
+              Text(
+                category.label,
+                style: const TextStyle(fontSize: 9, color: Colors.grey),
+              ),
+            ],
+          ),
         ),
       ),
     );

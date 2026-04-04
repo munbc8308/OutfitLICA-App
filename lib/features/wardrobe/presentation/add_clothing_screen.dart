@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../domain/clothing_category.dart';
 import 'wardrobe_provider.dart';
 import '../../../shared/widgets/app_button.dart';
+import '../../../core/services/clothing_classification_service.dart';
 
 class AddClothingScreen extends ConsumerStatefulWidget {
   const AddClothingScreen({super.key});
@@ -20,6 +21,7 @@ class _AddClothingScreenState extends ConsumerState<AddClothingScreen> {
   ClothingSeason _season = ClothingSeason.all;
   final _nameController = TextEditingController();
   bool _isProcessing = false;
+  bool _isClassifying = false;
   final _picker = ImagePicker();
 
   @override
@@ -34,8 +36,25 @@ class _AddClothingScreenState extends ConsumerState<AddClothingScreen> {
       imageQuality: 90,
       maxWidth: 1200,
     );
-    if (picked != null) {
-      setState(() => _selectedImage = File(picked.path));
+    if (picked == null) return;
+
+    final file = File(picked.path);
+    setState(() {
+      _selectedImage = file;
+      _isClassifying = true;
+    });
+
+    final result =
+        await ClothingClassificationService.instance.classify(file);
+
+    if (mounted) {
+      setState(() {
+        _isClassifying = false;
+        if (result != null) {
+          _category = result.category;
+          _season = result.season;
+        }
+      });
     }
   }
 
@@ -77,8 +96,24 @@ class _AddClothingScreenState extends ConsumerState<AddClothingScreen> {
             const SizedBox(height: 24),
 
             // 카테고리 선택
-            const Text('카테고리',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            Row(
+              children: [
+                const Text('카테고리',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                if (_isClassifying) ...[
+                  const SizedBox(width: 10),
+                  const SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                  const SizedBox(width: 6),
+                  const Text('AI 분석 중...',
+                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                ],
+              ],
+            ),
             const SizedBox(height: 10),
             _CategorySelector(
               selected: _category,
@@ -87,8 +122,21 @@ class _AddClothingScreenState extends ConsumerState<AddClothingScreen> {
             const SizedBox(height: 24),
 
             // 시즌 선택
-            const Text('시즌',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            Row(
+              children: [
+                const Text('시즌',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                if (_isClassifying) ...[
+                  const SizedBox(width: 10),
+                  const SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ],
+              ],
+            ),
             const SizedBox(height: 10),
             _SeasonSelector(
               selected: _season,

@@ -91,11 +91,13 @@ class _OutfitBuilderScreenState
       body: Column(
         children: [
           // 코디 캔버스
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-            child: OutfitCanvasWidget(
-              selectedItems: state.selected,
-              canvasKey: _canvasKey,
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              child: OutfitCanvasWidget(
+                selectedItems: state.selected,
+                canvasKey: _canvasKey,
+              ),
             ),
           ),
 
